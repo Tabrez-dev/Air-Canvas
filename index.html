@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Air Canvas</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <button id="runScriptButton">Run Air Canvas</button>
+    <div id="result"></div>
+
+    <div id="instructions">
+        <p>Press 'q' to quit the Air Canvas.</p>
+    </div>
+
+    <script>
+        document.getElementById('runScriptButton').addEventListener('click', () => {
+            // Send a POST request to the Flask API
+            fetch('/run-aircanvas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ /* any data you need to send to the Air Canvas script */ })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Process and display the result on the web page
+                document.getElementById('result').innerText = data.result;
+            });
+        });
+    </script>
+</body>
+</html>
